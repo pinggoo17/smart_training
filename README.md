@@ -19,14 +19,14 @@
 
 # 🎉 디자인
 
-## 로그인 페이지 && 회원가입 페이지
+### 로그인 페이지 && 회원가입 페이지
 ![Capture_2022_10_12_17_45_42_809](https://user-images.githubusercontent.com/102128108/195295964-5716bce4-b717-4a5a-a80b-59922f44abb0.png)
 ![Capture_2022_10_12_17_45_54_224](https://user-images.githubusercontent.com/102128108/195296040-923db2f8-0f01-4a9c-8117-52d904f6756c.png)
-## 관리 페이지
+### 관리 페이지
 ![Capture_2022_10_12_17_46_23_64](https://user-images.githubusercontent.com/102128108/195296070-9f50a4ae-5e3d-4eb3-a1fc-f25341a55efb.png)
 ![Capture_2022_10_12_17_46_11_701](https://user-images.githubusercontent.com/102128108/195296060-1ac8951b-2c77-48e4-a706-12c5279d5c8a.png)
 ![Capture_2022_10_12_17_46_35_564](https://user-images.githubusercontent.com/102128108/195296076-bfed48e8-304c-4247-ab3e-31725095226a.png)
-## 상세 페이지
+### 상세 페이지
 ![Capture_2022_10_12_17_46_45_427](https://user-images.githubusercontent.com/102128108/195296096-71c3443b-a29c-4418-95be-3cd478cda3fc.png)
 ![Capture_2022_10_12_17_46_54_490](https://user-images.githubusercontent.com/102128108/195296102-5c0846ca-7ab1-4f42-ad1c-fa4a8cc757df.png)
 
