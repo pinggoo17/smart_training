@@ -34,7 +34,38 @@
 |:-:|:-:|
 |![Capture_2022_10_12_17_46_45_427](https://user-images.githubusercontent.com/102128108/195296096-71c3443b-a29c-4418-95be-3cd478cda3fc.png)|![Capture_2022_10_12_17_46_54_490](https://user-images.githubusercontent.com/102128108/195296102-5c0846ca-7ab1-4f42-ad1c-fa4a8cc757df.png)
 
+# 💎 데이터 분석
+![data-change](https://user-images.githubusercontent.com/102128108/202894556-4bcf57d4-52d4-4049-90b4-2bba690347c8.gif)
 
+IEMG로 근활성도를 구하였을 때, 근활성도는 무게와 repetetion에 비례함을 보인다.
+
+### 세부 데이터
+|5kg_10repetetion_5set|
+|:-:|
+|![Capture_2022_11_20_18_18_54_472](https://user-images.githubusercontent.com/102128108/202894751-d7411e6b-bf7a-44fa-9e7e-9a660b63112e.png)|
+
+|5kg_15repetetion_5set|
+|:-:|
+|![Capture_2022_11_20_18_18_54_472](https://user-images.githubusercontent.com/102128108/202894790-074ea8f7-4cdd-4422-93b5-5f5fc0d30e94.png)|
+
+|10kg_10repetetion_5set|
+|:-:|
+|![Capture_2022_11_20_18_19_01_598](https://user-images.githubusercontent.com/102128108/202894801-f30cf9a9-2c47-49b2-8ab8-3b2a440fec03.png)|
+
+
+|10kg_15repetetion_5set|
+|:-:|
+|![Capture_2022_11_20_18_19_08_790](https://user-images.githubusercontent.com/102128108/202894816-05f7b5d2-d446-4ed1-9ae8-87b4169f6b5d.png)|
+
+
+|15kg_10repetetion_5set|
+|:-:|
+|![Capture_2022_11_20_18_19_19_289](https://user-images.githubusercontent.com/102128108/202894831-ae75a16f-5e8b-4c5c-af06-9d806f3775ba.png)|
+
+
+|15kg_15repetetion_5set|
+|:-:|
+|![Capture_2022_11_20_18_19_24_829](https://user-images.githubusercontent.com/102128108/202894837-6c03b42d-66f0-4252-bc25-c1a1c80e6216.png)|
 # ✨ 기대효과
 
 개인은 개인의 웨이트 트레이닝에 있어서 정량적인 수치를 트래킹하며, 점진적 부하의 원리를 자신의 운동법에 잘 적용함으로써, 좋은 서비스를 제공받게 될 것이고, 개인 건강의 향상은 <strong>🎉곧, 전반적으로 건강한 사회에 기여</strong>를 할 것으로 기대된다.
