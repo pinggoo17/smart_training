@@ -45,8 +45,73 @@ export const options = {
 
 const labels = ["1set", "2set", "3set", "4set", "5set", "6set", "7set"];
 
-export function Graph() {
-  return <Line options={options} data={data} />;
+export function Graph({ rawData, targetDate }) {
+  let tempData = [];
+  let tempLabel = [];
+  let tempKey = "";
+
+  let aData = {
+    labels: [],
+    datasets: [
+      {
+        label: "Dataset 1",
+        data: [],
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        lineTension: 0.25,
+      },
+    ],
+  };
+
+  try {
+    if (rawData !== undefined) {
+      // console.log("rawData", rawData);
+      // console.log("rawData !== undefined", rawData !== undefined);
+      // console.log("rawData !== {}", rawData !== {});
+      // console.log("rawData.keys", Object.keys(rawData));
+      // console.log("rawData.keys.length", Object.keys(rawData).length);
+
+      // tempKey = Object.keys(rawData)[Object.keys(rawData).length - 1];
+      // console.log("component rawDate: ", rawData);
+      // console.log("component targetDate: ", targetDate);
+      tempKey = targetDate;
+      // console.log("Object.keys(rawData): ", Object.keys(rawData));
+      // console.log("component tempKey: ", tempKey);
+      // console.log("tempKey: ", tempKey);
+
+      tempData = rawData[tempKey];
+
+      // console.log("component tempData:", tempData);
+
+      // if (tempKey === new Date().toISOString().split("T")[0]) {
+      //   // console.log("같습니다!!");
+      // } else {
+      //   // console.log("다릅니다!!");
+      //   throw "not today";
+      // }
+
+      for (let i = 0; i < tempData.length; i++) {
+        tempLabel.push(`${i + 1}set`);
+      }
+
+      // console.log("tempLabel: ", tempLabel);
+      // console.log("tempData: ", tempData);
+
+      aData = {
+        labels: tempLabel,
+        datasets: [
+          {
+            label: tempKey,
+            data: tempData,
+            borderColor: "rgb(255, 99, 132)",
+            backgroundColor: "rgba(255, 99, 132, 0.5)",
+            lineTension: 0.25,
+          },
+        ],
+      };
+    }
+  } catch (err) {}
+  return <Line options={options} data={aData} />;
 }
 
 export function Header({ content }) {
@@ -68,20 +133,7 @@ export function Header({ content }) {
   );
 }
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-      lineTension: 0.25,
-    },
-  ],
-};
-
-export function ImageWithText({ content, img }) {
+export function ImageWithText({ content, img, toggleGoalPopUp, goalValue }) {
   return (
     <div
       style={{
@@ -95,6 +147,20 @@ export function ImageWithText({ content, img }) {
       <img src={img} alt="content" />
       <p style={{ fontWeight: "800", fontSize: "14pt", marginLeft: "0.5rem" }}>
         {content}
+      </p>
+      <p
+        style={{
+          margin: "0",
+          padding: "0",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "10pt",
+          color: "#4E4BF6",
+        }}
+        onClick={toggleGoalPopUp}
+      >
+        (증진 목표: {goalValue * 100}%)
       </p>
     </div>
   );
@@ -110,14 +176,14 @@ export function ImageWithText2({ content, img }) {
         width: "90%",
         marginTop: "0.5rem",
         marginBottom: "0.5rem",
-        top: "-1.5rem",
+        top: "-2rem",
         left: "1rem",
       }}
     >
       <img
         src={img}
         alt="content"
-        style={{ width: "1rem", objectFit: "contain" }}
+        style={{ width: "1.5rem", objectFit: "contain" }}
       />
       <p
         style={{
@@ -189,7 +255,7 @@ export function HealthManagementDisplayItemDiv({
           paddingBottom: "0.5rem",
         }}
       >
-        <ProgressBar percent={last / goal} />
+        <ProgressBar percent={last / goal} goal={goal} curr={curr} />
       </div>
 
       <S.NoMarginP2>
@@ -207,14 +273,15 @@ export function HealthManagementDisplayItemDiv({
           paddingBottom: "0.5rem",
         }}
       >
-        <ProgressBar percent={curr / goal} />
+        <ProgressBar percent={curr / goal} goal={goal} />
       </div>
     </S.HealthManagementItemDiv>
   );
 }
 
-export function ProgressBar({ percent }) {
+export function ProgressBar({ percent, goal }) {
   percent = Math.round(percent * 100);
+  // console.log("goal: ", goal);
   return (
     <div
       style={{
@@ -222,16 +289,18 @@ export function ProgressBar({ percent }) {
         backgroundColor: "#A5A5A5",
         height: "1.5rem",
         borderRadius: "2px",
+        overflow: "hidden",
       }}
     >
       <div
         style={{
-          width: `${percent}%`,
+          width: `${goal === 0 ? 100 : percent}%`,
           height: "100%",
           backgroundColor: "#BFDEEC",
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
+          overflow: "hidden",
         }}
       >
         <p
@@ -239,10 +308,12 @@ export function ProgressBar({ percent }) {
             color: "white",
             display: "inline",
             margin: 0,
-            paddingTop: "0.1rem",
+            justifyContent: "center",
+            alignItems: "center",
+            overflow: "hidden",
           }}
         >
-          {percent}%
+          {goal === 0 ? 100 : percent}%
         </p>
       </div>
     </div>

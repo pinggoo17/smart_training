@@ -6,6 +6,16 @@ import report from "../../assets/img/report.svg";
 import { Button } from "@mui/material";
 import { categoryAddAPI, categoryRemoveAPI } from "../../apis/category";
 
+function getDayOfWeek(날짜문자열) {
+  //ex) getDayOfWeek('2022-06-13')
+
+  const week = ["일", "월", "화", "수", "목", "금", "토"];
+
+  const dayOfWeek = week[new Date(날짜문자열).getDay()];
+
+  return dayOfWeek;
+}
+
 function HomePresenter({
   categoryList,
   getTarget,
@@ -106,17 +116,24 @@ function HomePresenter({
         </p>
       </div>
       <S.HealthManagementContainer>
-        {categoryList.map(({ title, username, _id }) => {
-          return (
-            <C.HealthManagementItemDiv
-              title={title}
-              recent="2022. 09. 09(금)"
-              last="23,696(EMG)"
-              unique_id={_id}
-              getTarget={getTarget}
-            />
-          );
-        })}
+        {categoryList.map(
+          ({ title, username, totalPower, recentDate, category }) => {
+            return (
+              <C.HealthManagementItemDiv
+                title={title}
+                recent={
+                  recentDate
+                    ? `${recentDate}(${getDayOfWeek(recentDate)})`
+                    : "없음"
+                }
+                last={`${totalPower}(EMG)`}
+                unique_id={category}
+                getTarget={getTarget}
+                removeToggle={removeToggle}
+              />
+            );
+          }
+        )}
       </S.HealthManagementContainer>
     </S.ContainerDiv>
   );

@@ -5,6 +5,7 @@ const { Schema } = mongoose;
 const CategorySchema = new Schema({
   username: String,
   title: String,
+  userParameter: Number,
 });
 
 CategorySchema.statics.findByUsername = function (username) {

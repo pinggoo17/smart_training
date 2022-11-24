@@ -1,5 +1,27 @@
 import Joi from "joi";
 import CategoryItem from "../../models/categoryItem";
+import Category from "../../models/category";
+
+export const userParam = async (ctx) => {
+  const { categoryId } = ctx.request.body;
+
+  try {
+    const exists = await Category.findOne({
+      where: {
+        categoryId,
+      },
+    });
+
+    if (!exists) {
+      ctx.body = "none data";
+      return;
+    }
+
+    ctx.body = exists.userParameter;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
 
 export const list = async (ctx) => {
   // const schema = Joi.object().keys({

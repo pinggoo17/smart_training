@@ -18,6 +18,17 @@ function DetailPresenter({
   categoryId,
   onClickEstimate,
   setActionDetector,
+  rawData,
+  currAct,
+  lastAct,
+  goalPopUp,
+  toggleGoalPopUp,
+  goalValue,
+  setGoalValue,
+  onClickGoalModify,
+  targetDate,
+  setTargetDate,
+  addDay,
 }) {
   return (
     <S.ContainerDiv>
@@ -48,17 +59,70 @@ function DetailPresenter({
           측정완료
         </Button>
       </C.ModalItem>
-      <p>
-        {"< "}&nbsp;2022. 09. 09&nbsp;{" >"}
-      </p>
-      <C.Graph />
-      <C.ImageWithText img={report} content="운동 관리" />
+
+      <C.ModalItem
+        open={goalPopUp}
+        title="증진 목표 변경"
+        onClickClose={() => toggleGoalPopUp(false)}
+      >
+        <p style={{ fontFamily: "sans-serif", color: "#A5A5A5" }}>운동명</p>
+        <S.InputBoxInput
+          style={{ marginBottom: "1rem", color: "#A5A5A5" }}
+          disabled
+          defaultValue={targetHealth}
+        />
+        <S.InputBoxInput
+          style={{ marginBottom: "1rem", color: "#A5A5A5" }}
+          onChange={(e) => {
+            setGoalValue(e.target.value);
+          }}
+        />
+        <Button
+          variant="contained"
+          sx={{ width: "102%", height: "2.5rem" }}
+          onClick={onClickGoalModify}
+        >
+          수정완료
+        </Button>
+      </C.ModalItem>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        <p
+          style={{ display: "inline" }}
+          onClick={() => {
+            addDay(targetDate, -1);
+          }}
+        >
+          {"< "}
+        </p>
+        <p style={{ display: "inline" }}>&nbsp;{targetDate}&nbsp;</p>
+        <p
+          style={{ display: "inline" }}
+          onClick={() => {
+            addDay(targetDate, 1);
+          }}
+        >
+          {" >"}
+        </p>
+      </div>
+      <C.Graph rawData={rawData} targetDate={targetDate} />
+      <C.ImageWithText
+        img={report}
+        content="운동 관리"
+        toggleGoalPopUp={() => toggleGoalPopUp(true)}
+        goalValue={goalValue}
+      />
       <S.HealthManagementContainer>
         <C.HealthManagementDisplayItemDiv
           title="운동량"
-          goal={28435}
-          last={23696}
-          curr={16587}
+          goal={lastAct * (goalValue + 1.0)}
+          last={lastAct}
+          curr={currAct}
           img={smile}
           unit="EMG"
           size={true}
@@ -66,13 +130,7 @@ function DetailPresenter({
         <C.HealthManagementItemDiv
           title="추천냥"
           img={cat}
-          content={
-            "팔굽혀 펴기 종목에서\n\
-          \n\
-          지난 운동량 보다  현재 운동량이 적습니다.\n\
-          \n\
-          추가적인 운동을 실시할 것을 권장드립니다."
-          }
+          content={"in developing...\n\n"}
         />
       </S.HealthManagementContainer>
       <S.HealthManagementContainer

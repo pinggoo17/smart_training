@@ -55,9 +55,10 @@ function LoginPresenter({ setUsername, onLoginClick }) {
             textAlign: "center",
             color: "#bdbdbd",
             fontFamily: "sans-serif",
+            whiteSpace: "pre-line",
           }}
         >
-          do you have no account yet? register{" "}
+          do you have no account yet? {"\n"} register{" "}
           <a
             href="/signUp"
             style={{

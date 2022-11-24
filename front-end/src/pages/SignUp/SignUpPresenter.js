@@ -53,8 +53,16 @@ function SignUpPresenter({ setUsername, onRegisterClick }) {
           R E G I S T E R
         </Button>
 
-        <p style={{ fontSize: "12pt", textAlign: "center", color: "#bdbdbd" }}>
-          do you have account already? &nbsp; login{" "}
+        <p
+          style={{
+            fontSize: "12pt",
+            textAlign: "center",
+            color: "#bdbdbd",
+            fontFamily: "sans-serif",
+            whiteSpace: "pre-line",
+          }}
+        >
+          do you have account already? &nbsp; {"\n"} login{" "}
           <a
             href="/login"
             style={{

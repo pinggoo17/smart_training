@@ -16,7 +16,9 @@ function HomeContainer() {
     {
       title: "",
       username: "",
-      _id: "",
+      totalPower: "",
+      recentDate: "",
+      category: "",
     },
   ]);
   const username = localStorage.getItem("username");

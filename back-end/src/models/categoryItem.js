@@ -19,5 +19,9 @@ CategoryItemSchema.statics.findByUserCategory = function ({
   return this.find({ username, categoryId });
 };
 
+CategoryItemSchema.statics.findbyUserName = function (username) {
+  return this.find({ username });
+};
+
 const CategoryItem = mongoose.model("CategoryItem", CategoryItemSchema);
 export default CategoryItem;

@@ -107,6 +107,7 @@ export function HealthManagementItemDiv({
   last,
   unique_id,
   getTarget,
+  removeToggle,
 }) {
   const navigate = useNavigate();
 
@@ -130,8 +131,10 @@ export function HealthManagementItemDiv({
           color: "#4E4BF6",
           cursor: "pointer",
         }}
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           getTarget({ target: title, unique: unique_id });
+          removeToggle(true);
         }}
       >
         제거하기
