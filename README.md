@@ -18,7 +18,7 @@
 
 |프로젝트 구조|
 |:-:|
-|![Capture_2022_11_25_10_23_50_106](https://user-images.githubusercontent.com/102128108/203882104-46b5325c-8cfb-4879-a163-da1064723c09.png)|
+|![Capture_2022_11_25_10_39_21_611](https://user-images.githubusercontent.com/102128108/203883439-cd09cbab-5c0b-40b7-bee5-655d0c49ee5c.png)|
 
 
 
@@ -27,7 +27,7 @@
 ### 로그인 페이지 && 회원가입 페이지
 |로그인|회원가입|
 |:-:|:-:|
-|![Capture_2022_10_12_17_45_42_809](https://user-images.githubusercontent.com/102128108/195295964-5716bce4-b717-4a5a-a80b-59922f44abb0.png)|![Capture_2022_10_12_17_45_54_224](https://user-images.githubusercontent.com/102128108/195296040-923db2f8-0f01-4a9c-8117-52d904f6756c.png)|
+|![Capture_2022_11_25_10_37_31_855](https://user-images.githubusercontent.com/102128108/203883298-5d0a1080-9406-49c8-bdf1-dcf839179eb3.png)|![Capture_2022_11_25_10_37_07_574](https://user-images.githubusercontent.com/102128108/203883250-8969d93b-3a5d-4e69-812f-f241e217a513.png)|
 
 ### 관리 페이지
 |리스트|등록|제거|
