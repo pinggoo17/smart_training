@@ -18,9 +18,12 @@ export const HeaderBoxDiv = styled.div`
 `;
 
 export const HomeCharacterContainer = styled.div`
-  height: 20rem;
+  height: 22rem;
   width: 90%;
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2; */
+  background-image: url(${(props) => props.backImage});
+  background-size: cover;
+  background-position: center;
   border-radius: 10px;
 
   margin-top: 2rem;

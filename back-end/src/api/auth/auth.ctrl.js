@@ -1,15 +1,6 @@
 import Joi from "joi";
 import User from "../../models/user";
 
-/*
-POST /api/auth/register
-
-{
-    username: 'velopert',
-    password: 'mypass123',
-}
-*/
-
 export const register = async (ctx) => {
   const schema = Joi.object().keys({
     username: Joi.string().alphanum().min(3).max(20).required(),
@@ -32,6 +23,11 @@ export const register = async (ctx) => {
 
     const user = new User({
       username,
+      userLevel: 1,
+      userEXP: 0,
+      userMoney: 0,
+      userWeapon: "w0",
+      userBackImg: "b1",
     });
 
     await user.save();
@@ -50,6 +46,51 @@ export const login = async (ctx) => {
     ctx.status = 401;
     return;
   }
+
+  try {
+    const user = await User.findByUsername(username);
+
+    if (!user) {
+      ctx.status = 401;
+      return;
+    }
+
+    ctx.body = user.toJSON();
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
+
+export const saveState = async (ctx) => {
+  const { username, userLevel, userEXP, userMoney, userWeapon, userBackImg } =
+    ctx.request.body;
+
+  // console.log(ctx.request.body);
+
+  try {
+    const user = await User.findByUsername(username);
+
+    if (!user) {
+      ctx.status = 401;
+      return;
+    }
+
+    user.userLevel = userLevel;
+    user.userEXP = userEXP;
+    user.userMoney = userMoney;
+    user.userWeapon = userWeapon;
+    user.userBackImg = userBackImg;
+
+    await user.save();
+
+    ctx.body = user.toJSON();
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
+
+export const getState = async (ctx) => {
+  const { username } = ctx.request.body;
 
   try {
     const user = await User.findByUsername(username);

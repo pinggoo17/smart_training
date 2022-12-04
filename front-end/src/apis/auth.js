@@ -5,3 +5,23 @@ export const signUpAPI = ({ username }) =>
 
 export const signInAPI = ({ username }) =>
   base.post("/api/auth/login", { username });
+
+export const getUserStatusAPI = ({ username }) =>
+  base.post("api/auth/getState", { username });
+
+export const updateUserStatusAPI = ({
+  username,
+  userLevel,
+  userEXP,
+  userMoney,
+  userWeapon,
+  userBackImg,
+}) =>
+  base.post("api/auth/saveState", {
+    username,
+    userLevel,
+    userEXP,
+    userMoney,
+    userWeapon,
+    userBackImg,
+  });

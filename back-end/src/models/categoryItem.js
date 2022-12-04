@@ -6,6 +6,7 @@ const CategoryItemSchema = new Schema({
   username: String,
   categoryId: String,
   power: Number,
+  time: Number,
   date: {
     type: Date,
     default: Date.now,

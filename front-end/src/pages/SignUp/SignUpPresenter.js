@@ -4,11 +4,11 @@ import * as C from "./SignUpComponent";
 import * as S from "./SignUpStyled";
 
 import cat from "../../assets/img/cat.svg";
-import lock from "../../assets/img/lock.svg";
+import calendar from "../../assets/img/calendar.svg";
 import mail from "../../assets/img/mail.svg";
 import { Button } from "@mui/material";
 
-function SignUpPresenter({ setUsername, onRegisterClick }) {
+function SignUpPresenter({ setUsername, onRegisterClick, gender, setGender }) {
   return (
     <S.ContainerDiv>
       <img
@@ -34,6 +34,12 @@ function SignUpPresenter({ setUsername, onRegisterClick }) {
           img={mail}
           setString={setUsername}
         />
+
+        <C.InputBoxWithImg
+          placeholder="User BirthDate (19980508)"
+          img={calendar}
+          setString={() => {}}
+        />
         {/* <C.InputBoxWithImg
           placeholder="User Password"
           img={lock}
@@ -44,6 +50,42 @@ function SignUpPresenter({ setUsername, onRegisterClick }) {
           img={lock}
           setString={setPWCK}
         /> */}
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            marginBottom: "2rem",
+          }}
+        >
+          <Button
+            variant="contained"
+            sx={{
+              width: "50%",
+              backgroundColor: gender === "male" ? "#c4dcf5" : "#A5A5A5",
+              marginRight: "0.5rem",
+            }}
+            onClick={() => {
+              setGender("male");
+            }}
+          >
+            남
+          </Button>
+
+          <Button
+            variant="contained"
+            sx={{
+              width: "50%",
+              backgroundColor: gender === "female" ? "#c4dcf5" : "#A5A5A5",
+              marginLeft: "0.5rem",
+            }}
+            onClick={() => {
+              setGender("female");
+            }}
+          >
+            여
+          </Button>
+        </div>
 
         <Button
           variant="contained"

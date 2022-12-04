@@ -5,6 +5,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import {
   Chart as ChartJS,
   CategoryScale,
+  BarElement,
   LinearScale,
   PointElement,
   LineElement,
@@ -12,17 +13,34 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Line } from "react-chartjs-2";
+import { Chart } from "react-chartjs-2";
 import faker from "faker";
 import { Box, Modal } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
+
+function insertCommas(n) {
+  // get stuff before the dot
+  let s1 = n;
+  var d = s1.indexOf(".");
+  var s2 = d === -1 ? s1 : s1.slice(0, d);
+
+  // insert commas every 3 digits from the right
+  for (var i = s2.length - 3; i > 0; i -= 3)
+    s2 = s2.slice(0, i) + "," + s2.slice(i);
+
+  // append fractional part
+  if (d !== -1) s2 += s1.slice(d);
+
+  return s2;
+}
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend
@@ -32,7 +50,7 @@ export const options = {
   responsive: true,
   plugins: {
     legend: {
-      display: false,
+      display: true,
       position: "top",
     },
     title: {
@@ -41,30 +59,59 @@ export const options = {
       fontSize: "1rem",
     },
   },
+  scales: {
+    y: {
+      type: "linear",
+      disaply: true,
+      position: "left",
+      grid: {
+        drawOnChartArea: false,
+      },
+    },
+    y1: {
+      type: "linear",
+      display: true,
+      position: "right",
+    },
+  },
 };
 
 const labels = ["1set", "2set", "3set", "4set", "5set", "6set", "7set"];
 
-export function Graph({ rawData, targetDate }) {
+export function Graph({ rawData, targetDate, timeRawData }) {
   let tempData = [];
+  let tempTimeData = [];
   let tempLabel = [];
   let tempKey = "";
+
+  // console.log(timeRawData);
 
   let aData = {
     labels: [],
     datasets: [
       {
-        label: "Dataset 1",
+        type: "line",
+        label: "운동량",
         data: [],
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
         lineTension: 0.25,
+        yAxisID: "y",
+      },
+      {
+        type: "bar",
+        label: "소요 시간",
+        data: [],
+        borderColor: "rgb(132, 99, 255)",
+        backgroundColor: "rgba(132, 99, 255, 0.5)",
+        lineTension: 0.25,
+        yAxisID: "y1",
       },
     ],
   };
 
   try {
-    if (rawData !== undefined) {
+    if (rawData !== undefined && timeRawData !== undefined) {
       // console.log("rawData", rawData);
       // console.log("rawData !== undefined", rawData !== undefined);
       // console.log("rawData !== {}", rawData !== {});
@@ -80,6 +127,7 @@ export function Graph({ rawData, targetDate }) {
       // console.log("tempKey: ", tempKey);
 
       tempData = rawData[tempKey];
+      tempTimeData = timeRawData[tempKey];
 
       // console.log("component tempData:", tempData);
 
@@ -96,22 +144,34 @@ export function Graph({ rawData, targetDate }) {
 
       // console.log("tempLabel: ", tempLabel);
       // console.log("tempData: ", tempData);
+      // console.log("tempTimeData: ", tempTimeData);
 
       aData = {
         labels: tempLabel,
         datasets: [
           {
-            label: tempKey,
+            label: "운동량",
             data: tempData,
             borderColor: "rgb(255, 99, 132)",
             backgroundColor: "rgba(255, 99, 132, 0.5)",
             lineTension: 0.25,
+            yAxisID: "y",
+          },
+          {
+            label: "소요 시간",
+            data: tempTimeData,
+            borderColor: "rgb(132, 99, 255)",
+            backgroundColor: "rgba(132, 99, 255, 0.5)",
+            lineTension: 0.25,
+            yAxisID: "y1",
           },
         ],
       };
     }
-  } catch (err) {}
-  return <Line options={options} data={aData} />;
+  } catch (err) {
+    // console.log(err);
+  }
+  return <Chart options={options} data={aData} />;
 }
 
 export function Header({ content }) {
@@ -236,13 +296,13 @@ export function HealthManagementDisplayItemDiv({
             position: "absolute",
           }}
         >
-          {goal.toString()}({unit})
+          {insertCommas(Math.floor(goal).toString())}({unit})
         </p>
       </S.NoMarginP2>
       <S.NoMarginP2>
         지난 운동량
         <p style={{ color: "#A5A5A5", display: "inline", marginLeft: "1rem" }}>
-          {last.toString()}({unit})
+          {insertCommas(last.toString())}({unit})
         </p>
       </S.NoMarginP2>
 
@@ -261,7 +321,7 @@ export function HealthManagementDisplayItemDiv({
       <S.NoMarginP2>
         현재 운동량
         <p style={{ color: "#A5A5A5", display: "inline", marginLeft: "1rem" }}>
-          {curr.toString()}({unit})
+          {insertCommas(curr.toString())}({unit})
         </p>
       </S.NoMarginP2>
       <div
@@ -300,7 +360,7 @@ export function ProgressBar({ percent, goal }) {
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
-          overflow: "hidden",
+          maxWidth: "100%",
         }}
       >
         <p

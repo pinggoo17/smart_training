@@ -3,15 +3,19 @@ import * as C from "./HomeComponent";
 import * as S from "./HomeStyled";
 
 import report from "../../assets/img/report.svg";
+import treasure from "../../assets/img/treasure.svg";
+import testWeaphon from "../../assets/img/sword/4.svg";
+import testBackground from "../../assets/img/background/3.svg";
+import testMonster from "../../assets/img/monster/4.svg";
 import { Button } from "@mui/material";
 import { categoryAddAPI, categoryRemoveAPI } from "../../apis/category";
 
-function getDayOfWeek(날짜문자열) {
+function getDayOfWeek(targetDate) {
   //ex) getDayOfWeek('2022-06-13')
 
   const week = ["일", "월", "화", "수", "목", "금", "토"];
 
-  const dayOfWeek = week[new Date(날짜문자열).getDay()];
+  const dayOfWeek = week[new Date(targetDate).getDay()];
 
   return dayOfWeek;
 }
@@ -30,6 +34,12 @@ function HomePresenter({
   addToggle,
   setAddTarget,
   username,
+  userStatus,
+  onClickEvent,
+  userSTR,
+  weaponList,
+  backImgList,
+  mobList,
 }) {
   return (
     <S.ContainerDiv>
@@ -84,7 +94,32 @@ function HomePresenter({
       </C.ModalItem>
       <C.Header content={"홈"} />
       <div style={{ height: "3rem" }} />
-      <C.CharacterBox level={5} str={100} currExp={320} maxExp={1000} />
+      <C.CharacterBox
+        level={userStatus.userLevel}
+        str={userSTR}
+        currExp={userStatus.userEXP}
+        money={userStatus.userMoney}
+        maxExp={Math.ceil(100 * 1.2 ** userStatus.userLevel)}
+        onClickEvent={onClickEvent}
+        treasure={treasure}
+        sword={
+          weaponList[userStatus.userWeapon]
+            ? weaponList[userStatus.userWeapon].img
+            : undefined
+        }
+        backImage={
+          backImgList[userStatus.userBackImg]
+            ? backImgList[userStatus.userBackImg].img
+            : undefined
+        }
+        monster={testMonster}
+        weaponPower={
+          weaponList[userStatus.userWeapon]
+            ? weaponList[userStatus.userWeapon].effect
+            : 0
+        }
+        mobList={mobList}
+      />
 
       <div
         style={{
@@ -120,13 +155,14 @@ function HomePresenter({
           ({ title, username, totalPower, recentDate, category }) => {
             return (
               <C.HealthManagementItemDiv
+                key={title}
                 title={title}
                 recent={
                   recentDate
                     ? `${recentDate}(${getDayOfWeek(recentDate)})`
                     : "없음"
                 }
-                last={`${totalPower}(EMG)`}
+                last={`${totalPower}`}
                 unique_id={category}
                 getTarget={getTarget}
                 removeToggle={removeToggle}

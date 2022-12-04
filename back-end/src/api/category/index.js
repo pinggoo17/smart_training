@@ -7,5 +7,6 @@ category.post("/", categoryCtrl.list);
 category.post("/add", categoryCtrl.add);
 category.post("/remove", categoryCtrl.remove);
 category.put("/update", categoryCtrl.update);
+category.post("/getSTR", categoryCtrl.getUserSTR);
 
 export default category;

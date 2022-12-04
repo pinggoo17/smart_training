@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signUpAPI } from "../../apis/auth";
@@ -8,6 +8,7 @@ import SignUpPresenter from "./SignUpPresenter";
 function SignUpContainer() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
+  const [gender, setGender] = useState("male");
 
   const onRegisterClick = async () => {
     let res;
@@ -23,6 +24,8 @@ function SignUpContainer() {
     <SignUpPresenter
       setUsername={setUsername}
       onRegisterClick={onRegisterClick}
+      gender={gender}
+      setGender={setGender}
     />
   );
 }

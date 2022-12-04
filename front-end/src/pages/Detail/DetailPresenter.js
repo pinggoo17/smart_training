@@ -29,6 +29,9 @@ function DetailPresenter({
   targetDate,
   setTargetDate,
   addDay,
+  recMsg,
+  setTime,
+  timeRawData,
 }) {
   return (
     <S.ContainerDiv>
@@ -46,9 +49,17 @@ function DetailPresenter({
           defaultValue={targetHealth}
         />
         <S.InputBoxInput
+          placeholder="강도(EMG)"
           style={{ marginBottom: "1rem", color: "#A5A5A5" }}
           onChange={(e) => {
             setPower(e.target.value);
+          }}
+        />
+        <S.InputBoxInput
+          placeholder="소요시간(s)"
+          style={{ marginBottom: "1rem", color: "#A5A5A5" }}
+          onChange={(e) => {
+            setTime(e.target.value);
           }}
         />
         <Button
@@ -110,7 +121,11 @@ function DetailPresenter({
           {" >"}
         </p>
       </div>
-      <C.Graph rawData={rawData} targetDate={targetDate} />
+      <C.Graph
+        rawData={rawData}
+        targetDate={targetDate}
+        timeRawData={timeRawData}
+      />
       <C.ImageWithText
         img={report}
         content="운동 관리"
@@ -127,11 +142,7 @@ function DetailPresenter({
           unit="EMG"
           size={true}
         />
-        <C.HealthManagementItemDiv
-          title="추천냥"
-          img={cat}
-          content={"in developing...\n\n"}
-        />
+        <C.HealthManagementItemDiv title="도움냥" img={cat} content={recMsg} />
       </S.HealthManagementContainer>
       <S.HealthManagementContainer
         style={{

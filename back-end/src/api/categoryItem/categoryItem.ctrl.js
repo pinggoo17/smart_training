@@ -6,18 +6,18 @@ export const userParam = async (ctx) => {
   const { categoryId } = ctx.request.body;
 
   try {
-    const exists = await Category.findOne({
-      where: {
-        categoryId,
-      },
+    const exists = await Category.find({
+      _id: categoryId,
     });
+
+    // console.log("exists: ", exists);
 
     if (!exists) {
       ctx.body = "none data";
       return;
     }
 
-    ctx.body = exists.userParameter;
+    ctx.body = exists;
   } catch (e) {
     ctx.throw(500, e);
   }
@@ -64,6 +64,7 @@ export const add = async (ctx) => {
     username: Joi.string().required(),
     categoryId: Joi.string().required(),
     power: Joi.number().required(),
+    time: Joi.number().required(),
   });
 
   const result = schema.validate(ctx.request.body);
@@ -73,12 +74,13 @@ export const add = async (ctx) => {
     ctx.body = result.error;
   }
 
-  const { username, categoryId, power } = ctx.request.body;
+  const { username, categoryId, power, time } = ctx.request.body;
 
   const categoryItem = new CategoryItem({
     username,
     categoryId,
     power,
+    time,
   });
 
   try {

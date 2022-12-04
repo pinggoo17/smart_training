@@ -35,9 +35,6 @@ export const list = async (ctx) => {
             .replaceAll('"', "");
         }
       });
-      // console.log("lastDate: ", lastDate);
-      // console.log("category: ", category);
-
       return lastDate;
     });
 
@@ -64,18 +61,47 @@ export const list = async (ctx) => {
       return obj;
     });
 
-    // console.log("existsCategoryItems: ", existsCategoryItems);
-    // console.log("dateList: ", dateList);
-    // console.log("result: ", result);
-
-    // console.log(JSON.stringify(exists[0]._id));
-
     if (!exists) {
       ctx.body = "none data";
       return;
     }
 
     ctx.body = result;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
+
+export const getUserSTR = async (ctx) => {
+  const schema = Joi.object().keys({
+    username: Joi.string().required(),
+  });
+
+  const result = schema.validate(ctx.request.body);
+
+  if (result.error) {
+    ctx.status = 400;
+    ctx.body = result.error;
+  }
+
+  const { username } = ctx.request.body;
+
+  try {
+    const exist_items = await CategoryItem.findbyUserName(username);
+
+    let dateList = exist_items.map(
+      (item) => JSON.stringify(item.date).replaceAll('"', "").split("T")[0]
+    );
+
+    dateList = [...new Set(dateList)];
+
+    if (!exist_items) {
+      ctx.body = "none data";
+      return;
+    }
+
+    // console.log(dateList.length);
+    ctx.body = dateList.length;
   } catch (e) {
     ctx.throw(500, e);
   }
@@ -122,12 +148,22 @@ export const remove = async (ctx) => {
 };
 
 export const update = async (ctx) => {
-  const { id } = ctx.request.body;
+  const { id, userParameter } = ctx.request.body;
+
+  console.log(ctx.request.body);
 
   try {
-    const result = await Category.findByIdAndUpdate(id, ctx.request.body, {
-      new: true,
-    }).exec();
+    const result = await Category.findByIdAndUpdate(
+      id,
+      {
+        userParameter: userParameter,
+      },
+      {
+        new: true,
+      }
+    );
+
+    // console.log("result: ", result);
 
     ctx.body = result;
   } catch (e) {
